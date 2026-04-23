@@ -18,6 +18,8 @@ manifest:
       url-base: https://github.com/geeksville
     - name: janpfischer
       url-base: https://github.com/Dexter-KBD
+    - name: halfdane
+      url-base: https://github.com/halfdane/
 
   projects:
     - name: zmk
@@ -35,6 +37,9 @@ manifest:
       revision: main
     - name: zmk-dongle-screen
       remote: albertclee
+      revision: main
+    - name: zmk-input-gestures
+      remote: halfdane
       revision: main
       
   self:

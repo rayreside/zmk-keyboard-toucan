@@ -3,6 +3,14 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "toucan-layouts.dtsi"
 
+// to use gestures this is always necessary:
+#include <behaviors/input_processor_gestures.dtsi>
+
+// to translate absolute positions to relative positions. If you don't
+// want to use gestures for absolute mode, and you don't want to activate it,
+// you can ignore this line
+// #include <behaviors/input_processor_absolute_to_relative.dtsi>
+
 &physical_layout0 {
     transform = <&default_transform>;
 };
@@ -64,17 +72,31 @@
     };
 
     glidepoint_listener: glidepoint_listener {
+
+        &zip_gestures {
+            // Activate gestures and change their configuration as you see fit.
+            // for details, see the section below that describes all gestures and
+            // their configuration options.
+
+            inertial-cursor;
+            inertial-cursor-velocity-threshold-ms=<20>;
+            inertial-cursor-decay-percent=<98>;
+        };
+
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&glidepoint_split>;
-        input-processors = <&zip_xy_scaler 4 1>;
+        input-processors = <
+            &zip_xy_scaler 4 1
+            &zip_gestures
+        >;
 
         scroller {
             layers = <1 2>;
             input-processors = <
                 &zip_xy_to_scroll_mapper
                 &zip_scroll_scaler 1 12
-                &zip_xy_transform INPUT_TRANSFORM_Y_INVERT
+                &zip_xy_transform (INPUT_TRANSFORM_Y_INVERT | INPUT_TRANSFORM_X_INVERT)
             >;
         };
     };
