@@ -94,6 +94,4 @@
 &zip_gestures {
     // Activate gestures and change their configuration as you see fit.
     inertial-cursor;
-    inertial-cursor-velocity-threshold-ms=<20>;
-    inertial-cursor-decay-percent=<98>;
 };
