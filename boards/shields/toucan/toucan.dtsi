@@ -3,14 +3,6 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include "toucan-layouts.dtsi"
 
-// to use gestures this is always necessary:
-#include <behaviors/input_processor_gestures.dtsi>
-
-// to translate absolute positions to relative positions. If you don't
-// want to use gestures for absolute mode, and you don't want to activate it,
-// you can ignore this line
-// #include <behaviors/input_processor_absolute_to_relative.dtsi>
-
 &physical_layout0 {
     transform = <&default_transform>;
 };
@@ -75,10 +67,6 @@
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&glidepoint_split>;
-        input-processors = <
-            &zip_xy_scaler 4 1
-            &zip_gestures
-        >;
 
         scroller {
             layers = <1 2>;
@@ -89,9 +77,4 @@
             >;
         };
     };
-};
-
-&zip_gestures {
-    // Activate gestures and change their configuration as you see fit.
-    inertial-cursor;
 };

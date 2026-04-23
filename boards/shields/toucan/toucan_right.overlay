@@ -2,6 +2,9 @@
 #include <input/processors.dtsi>
 #include <dt-bindings/zmk/input_transform.h>
 
+// Gestures only on right side with physical trackpad
+#include <behaviors/input_processor_gestures.dtsi>
+
 &xiao_i2c {
     status = "disabled";
 };
@@ -76,5 +79,14 @@
     device = <&glidepoint>;
 
     // Scale cursor movement for faster pointer speed.
-    //input-processors = <&zip_xy_scaler 4 1>;
+    input-processors = <&zip_xy_scaler 4 1>;
+};
+
+&glidepoint_listener {
+    input-processors = <&zip_gestures>;
+};
+
+&zip_gestures {
+    // Activate gestures and change their configuration as you see fit.
+    inertial-cursor;
 };
