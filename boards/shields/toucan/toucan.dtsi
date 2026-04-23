@@ -63,17 +63,27 @@
         };
     };
 
+    zip_lclk_to_rclk: zip_lclk_to_rclk {
+        compatible = "zmk,input-processor-code-mapper";
+        #input-processor-cells = <0>;
+        type = <INPUT_EV_KEY>; 
+        // Map Left Click (0) to Right Click (1)
+        map = <INPUT_EV_KEY 0 INPUT_EV_KEY 1>;
+    };
+
     glidepoint_listener: glidepoint_listener {
         compatible = "zmk,input-listener";
         status = "disabled";
         device = <&glidepoint_split>;
         input-processors = <&zip_xy_scaler 250 100>;
         scroller {
-            layers = <1 2>;
+            layers = <2>;
             input-processors = <
                 &zip_xy_to_scroll_mapper
-                &zip_scroll_scaler 1 5
+                &zip_scroll_scaler 1 7
                 &zip_scroll_transform INPUT_TRANSFORM_X_INVERT
+                &zip_scroll_transform INPUT_TRANSFORM_Y_INVERT
+                &zip_lclk_to_rclk
             >;
         };
     };
